@@ -1,0 +1,21 @@
+version: '3.5'
+
+services:
+  api_gateway:
+    image: phaedra2-api-gateway:0.0.1-SNAPSHOT
+    hostname: phaedra2-api-gateway
+    container_name: phaedra2-api-gateway
+    environment:
+      - JAVA_OPTS=
+        -DSERVICE_REGISTRY=http://phaedra2-serviceregistry:8761/eureka/
+    restart: always
+    networks:
+      - phaedra2
+    ports:
+      - 127.0.0.1:8080:3131
+
+networks:
+  phaedra2:
+    external:
+      name: phaedra2
+
