@@ -3,20 +3,25 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+    <groupId>eu.openanalytics.phaedra</groupId>
 	<artifactId>phaedra2-gateway</artifactId>
 	<name>Phaedra2 Gateway</name>
 	<version>0.0.1-SNAPSHOT</version>
 
     <parent>
-        <groupId>eu.openanalytics.phaedra</groupId>
-        <artifactId>phaedra2-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../phaedra2-parent</relativePath>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.3</version>
+        <relativePath/>
     </parent>
     
 	<properties>
 		<java.version>11</java.version>
      	<fabric8.docker.version>0.37.0</fabric8.docker.version>
+     	<docker.repoPrefix/>
+		<docker.imageName>${project.parent.artifactId}</docker.imageName>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 	
 	<repositories>
@@ -59,6 +64,7 @@
 						<image>
 							<name>${docker.repoPrefix}${docker.imageName}</name>
 							<build>
+								<dockerFile>${project.basedir}/Dockerfile</dockerFile>
 								<tags>
 									<tag>${project.version}</tag>
 								</tags>
@@ -81,5 +87,18 @@
 			</plugin>
 		</plugins>
 	</build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>oa-nexus-snapshots</id>
+            <name>OpenAnalytics Snapshots Repository</name>
+            <url>https://nexus.openanalytics.eu/repository/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>oa-nexus-releases</id>
+            <name>OpenAnalytics Release Repository</name>
+            <url>https://nexus.openanalytics.eu/repository/releases</url>
+        </repository>
+    </distributionManagement>
 
 </project>
