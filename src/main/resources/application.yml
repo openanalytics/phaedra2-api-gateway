@@ -1,0 +1,46 @@
+server:
+  servlet:
+    context-path: /phaedra/api/v1
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+      - RewritePath=/phaedra/api/v.+/(?<service>.*service)/(?<segment>.*), /phaedra/$\{service}/$\{segment}
+      routes:
+      - id: plate-service
+        uri: http://phaedra-plate-service
+        predicates:
+        - Path=/phaedra/api/*/plate-service/**
+      - id: metadata-service
+        uri: http://phaedra-metadata-service
+        predicates:
+        - Path=/phaedra/api/*/metadata-service/**
+      - id: protocol-service
+        uri: http://phaedra-protocol-service
+        predicates:
+        - Path=/phaedra/api/*/protocol-service/**
+      - id: calculation-service
+        uri: http://phaedra-calculation-service
+        predicates:
+        - Path=/phaedra/api/*/calculation-service/**
+      - id: resultdata-service
+        uri: http://phaedra-resultdata-service
+        predicates:
+        - Path=/phaedra/api/*/resultdata-service/**
+      - id: meas-service
+        uri: http://phaedra-measurement-service
+        predicates:
+        - Path=/phaedra/api/*/meas-service/**
+      - id: datacapture-service
+        uri: http://phaedra-datacapture-service
+        predicates:
+        - Path=/phaedra/api/*/datacapture-service/**
+        filters:
+        - RewritePath=/phaedra/api/v.+/(?<service>.*service)/(?<segment>.*), /phaedra/datacapture/$\{segment}
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: DEBUG
+#    reactor.netty.http.client.HttpClientConnect: DEBUG
