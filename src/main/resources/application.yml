@@ -9,31 +9,31 @@ spring:
       - RewritePath=/phaedra/api/v.+/(?<service>.*service)/(?<segment>.*), /phaedra/$\{service}/$\{segment}
       routes:
       - id: plate-service
-        uri: http://phaedra-plate-service
+        uri: http://phaedra-plate-service:8080
         predicates:
         - Path=/phaedra/api/*/plate-service/**
       - id: metadata-service
-        uri: http://phaedra-metadata-service
+        uri: http://phaedra-metadata-service:8080
         predicates:
         - Path=/phaedra/api/*/metadata-service/**
       - id: protocol-service
-        uri: http://phaedra-protocol-service
+        uri: http://phaedra-protocol-service:8080
         predicates:
         - Path=/phaedra/api/*/protocol-service/**
       - id: calculation-service
-        uri: http://phaedra-calculation-service
+        uri: http://phaedra-calculation-service:8080
         predicates:
         - Path=/phaedra/api/*/calculation-service/**
       - id: resultdata-service
-        uri: http://phaedra-resultdata-service
+        uri: http://phaedra-resultdata-service:8080
         predicates:
         - Path=/phaedra/api/*/resultdata-service/**
       - id: meas-service
-        uri: http://phaedra-measurement-service
+        uri: http://phaedra-measurement-service:8080
         predicates:
         - Path=/phaedra/api/*/meas-service/**
       - id: datacapture-service
-        uri: http://phaedra-datacapture-service
+        uri: http://phaedra-datacapture-service:8080
         predicates:
         - Path=/phaedra/api/*/datacapture-service/**
         filters:
