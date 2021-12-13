@@ -19,7 +19,7 @@
 		<java.version>11</java.version>
      	<fabric8.docker.version>0.37.0</fabric8.docker.version>
      	<docker.repoPrefix/>
-		<docker.imageName>${project.parent.artifactId}</docker.imageName>
+		<docker.imageName>${project.artifactId}</docker.imageName>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
