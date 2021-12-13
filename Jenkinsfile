@@ -86,13 +86,9 @@ pipeline {
             steps {
                 dir('server') {
                     container('builder') {
-
                         configFileProvider([configFile(fileId: 'maven-settings-rsb', variable: 'MAVEN_SETTINGS_RSB')]) {
-
-                            sh "mvn -s \$MAVEN_SETTINGS_RSB docker:build -Ddocker.repoPrefix=${env.REPO_PREFIX} ${env.MVN_ARGS}"
-
+                            sh "mvn -s \$MAVEN_SETTINGS_RSB io.fabric8:docker-maven-plugin:build -Ddocker.repoPrefix=${env.REPO_PREFIX} ${env.MVN_ARGS}"
                         }
-
                     }
                 }
             }
@@ -107,7 +103,6 @@ pipeline {
                         sh "\$(aws ecr get-login --registry-ids '${env.ACCOUNTID}' --region 'eu-west-1' --no-include-email)"
 
                         configFileProvider([configFile(fileId: 'maven-settings-rsb', variable: 'MAVEN_SETTINGS_RSB')]) {
-
                             sh "mvn -s \$MAVEN_SETTINGS_RSB docker:push -Ddocker.repoPrefix=${env.REPO_PREFIX} ${env.MVN_ARGS}"
                         }
                     }
