@@ -8,13 +8,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "*"
-            allowedMethods:
-            - GET
-            - POST
-            - PUT
-            - DELETE
-            - OPTIONS
+            allowedMethods: '*'
       default-filters:
       - RewritePath=/phaedra/api/v.+/(?<service>.*service)/(?<segment>.*), /phaedra/$\{service}/$\{segment}
       routes:
