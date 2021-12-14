@@ -8,8 +8,9 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://localhost:8080"
+            allowedOrigins: "*"
             allowedMethods: "*"
+            allowedHeaders: "*"
       default-filters:
       - RewritePath=/phaedra/api/v.+/(?<service>.*service)/(?<segment>.*), /phaedra/$\{service}/$\{segment}
       routes:
