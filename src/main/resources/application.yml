@@ -5,11 +5,6 @@ server:
 spring:
   cloud:
     gateway:
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedMethods: "*"
       default-filters:
       - RewritePath=/phaedra/api/v.+/(?<service>.*service)/(?<segment>.*), /phaedra/$\{service}/$\{segment}
       routes:
@@ -49,3 +44,10 @@ logging:
     root: INFO
     org.springframework.cloud.gateway: DEBUG
 #    reactor.netty.http.client.HttpClientConnect: DEBUG
+
+
+#       globalcors:
+#         cors-configurations:
+#           '[/**]':
+#             allowedOrigins: "*"
+#             allowedMethods: "*"
