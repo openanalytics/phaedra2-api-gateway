@@ -1,8 +1,10 @@
 server:
   servlet:
-    context-path: /phaedra/api/v1
+    context-path: /phaedra
 
 spring:
+  webflux:
+    base-path: /phaedra
   cloud:
     gateway:
       globalcors:
@@ -13,6 +15,7 @@ spring:
             allowedHeaders: "*"
       default-filters:
       - RewritePath=/phaedra/api/v.+/(?<service>.*service)/(?<segment>.*), /phaedra/$\{service}/$\{segment}
+      - TokenRelay=
       routes:
       - id: plate-service
         uri: http://phaedra-plate-service:8080
@@ -37,16 +40,39 @@ spring:
       - id: meas-service
         uri: http://phaedra-measurement-service:8080
         predicates:
-        - Path=/phaedra/api/*/meas-service/**
+        - Path=/phaedra/api/*/measurement-service/**
       - id: datacapture-service
         uri: http://phaedra-datacapture-service:8080
         predicates:
         - Path=/phaedra/api/*/datacapture-service/**
+      - id: ui
+        uri: http://phaedra-ui:8080
+        predicates:
+        - Path=/phaedra/ui/**
         filters:
-        - RewritePath=/phaedra/api/v.+/(?<service>.*service)/(?<segment>.*), /phaedra/datacapture/$\{segment}
+        - RewritePath=/phaedra/ui/(?<segment>.*), /phaedra/ui/$\{segment}
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+#            client-id: phaedra2-gateway
+#            client-secret: ???
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid,profile,email
+        provider:
+          keycloak:
+            authorization-uri: http://keycloak:8080/auth/realms/phaedra2/protocol/openid-connect/auth
+            token-uri: http://keycloak:8080/auth/realms/phaedra2/protocol/openid-connect/token
+            user-info-uri: http://keycloak:8080/auth/realms/phaedra2/protocol/openid-connect/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: http://keycloak:8080/auth/realms/phaedra2/protocol/openid-connect/certs
 
 logging:
   level:
     root: INFO
     org.springframework.cloud.gateway: DEBUG
 #    reactor.netty.http.client.HttpClientConnect: DEBUG
+    org.springframework.security.web: DEBUG
