@@ -25,6 +25,8 @@ public class GatewayApplication {
 		return http.authorizeExchange()
 				// API requests are routed freely (for now), the endpoint may choose to deny the request.
 				.pathMatchers("/api/**").permitAll()
+				// The userinfo endpoint is accessible freely. Without an authenticated session, there is nothing to see.
+				.pathMatchers("/userinfo").permitAll()
 				// The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
 				.anyExchange().authenticated()
 			.and().oauth2Login()
