@@ -18,7 +18,12 @@ public class UserInfo {
 	@RequestMapping(value = "/userinfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getUserInfo(Principal principal) {
 		OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) principal;
-		OidcUser user = (OidcUser) token.getPrincipal();
-        return ResponseEntity.ok(user.getUserInfo());
+		
+		if (token != null && token.getPrincipal() instanceof OidcUser) {
+			OidcUser user = (OidcUser) token.getPrincipal();
+	        return ResponseEntity.ok(user.getUserInfo());
+		}
+		
+		return ResponseEntity.notFound().build();
     }
 }
