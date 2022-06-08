@@ -20,7 +20,7 @@ spring:
       - id: plate-service
         uri: http://phaedra-plate-service:8080
         predicates:
-        - Path=/phaedra/api/*/plate-service/**
+        - Path=/phaedra/api/*/plate-service/**, /phaedra/plate-service/swagger-ui.html, /phaedra/plate-service/swagger-ui/**, /phaedra/plate-service/v3/api-docs/**
       - id: metadata-service
         uri: http://phaedra-metadata-service:8080
         predicates:

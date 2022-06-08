@@ -48,7 +48,9 @@ public class GatewayApplication {
 				// The userinfo endpoint is accessible freely. Without an authenticated session, there is nothing to see.
 				.pathMatchers("/userinfo").permitAll()
 				// The Swagger UI pages is accessible freely (for now)
+				.pathMatchers("/*/swagger-ui.html").permitAll()
 				.pathMatchers("/*/swagger-ui/**").permitAll()
+				.pathMatchers("/v3/api-docs/**").permitAll()
 				// The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
 				.anyExchange().authenticated()
 			.and().oauth2Login()
