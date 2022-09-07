@@ -5,15 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.client.OAuth2AuthorizeRequest;
-import org.springframework.security.oauth2.client.ReactiveOAuth2AuthorizedClientManager;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,27 +33,18 @@ public class UserLookup {
 	private static final RestTemplate REST_TEMPLATE = new RestTemplate();
 	
 	@Autowired
-	@Qualifier("clientCredentialsAuthorizedClientManager")
-	private ReactiveOAuth2AuthorizedClientManager clientManager;
-	
-	@Value("${gateway.user-lookup.client-reg-id}")
-	private String clientRegId;
+	private ClientCredentialsTokenGenerator tokenGenerator;
 	
 	@Value("${gateway.user-lookup.endpoint}")
 	private String endpointURL;
 	
 	@RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Map<String,String>> getUsers() {
-		OAuth2AuthorizeRequest authorizeRequest = OAuth2AuthorizeRequest
-				.withClientRegistrationId(clientRegId)
-				.principal("GatewayClient")
-				.build();
-		
-		return clientManager.authorize(authorizeRequest)
-			.map(client -> {
+		return tokenGenerator.obtainToken()
+			.map(token -> {
 				// Make a request to the Keycloak Admin API to fetch a list of users.
 				HttpHeaders headers = new HttpHeaders();
-				headers.add("Authorization", "Bearer " + client.getAccessToken().getTokenValue());
+				headers.add("Authorization", "Bearer " + token.getTokenValue());
 		        HttpEntity<?> request = new HttpEntity<>(headers);
 				ResponseEntity<String> response = REST_TEMPLATE.exchange(endpointURL, HttpMethod.GET, request, String.class);
 				String body = response.getBody();
