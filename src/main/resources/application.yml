@@ -1,3 +1,10 @@
+keycloak-base-url: http://keycloak:8080
+
+gateway:
+  user-lookup:
+    client-reg-id: keycloakClientCred
+    endpoint: ${keycloak-base-url}/auth/admin/realms/phaedra2/users
+
 server:
   servlet:
     context-path: /phaedra
@@ -62,13 +69,18 @@ spring:
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope: openid,profile,email
+          keycloakClientCred:
+            provider: keycloak
+            client-id: ${spring.security.oauth2.client.registration.keycloak.client-id}
+            client-secret: ${spring.security.oauth2.client.registration.keycloak.client-secret}
+            authorization-grant-type: client_credentials
         provider:
           keycloak:
-            authorization-uri: http://keycloak:8080/auth/realms/phaedra2/protocol/openid-connect/auth
-            token-uri: http://keycloak:8080/auth/realms/phaedra2/protocol/openid-connect/token
-            user-info-uri: http://keycloak:8080/auth/realms/phaedra2/protocol/openid-connect/userinfo
+            authorization-uri: ${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/auth
+            token-uri: ${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/token
+            user-info-uri: ${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/userinfo
             user-name-attribute: sub
-            jwk-set-uri: http://keycloak:8080/auth/realms/phaedra2/protocol/openid-connect/certs
+            jwk-set-uri: ${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/certs
 
 logging:
   level:
