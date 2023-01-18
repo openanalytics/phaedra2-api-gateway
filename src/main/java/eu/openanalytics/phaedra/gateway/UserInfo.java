@@ -1,7 +1,7 @@
 /**
  * Phaedra II
  *
- * Copyright (C) 2016-2022 Open Analytics
+ * Copyright (C) 2016-2023 Open Analytics
  *
  * ===========================================================================
  *
@@ -38,12 +38,12 @@ public class UserInfo {
 	@RequestMapping(value = "/userinfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getUserInfo(Principal principal) {
 		OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) principal;
-		
+
 		if (token != null && token.getPrincipal() instanceof OidcUser) {
 			OidcUser user = (OidcUser) token.getPrincipal();
 	        return ResponseEntity.ok(user.getUserInfo());
 		}
-		
+
 		return ResponseEntity.notFound().build();
     }
 }
