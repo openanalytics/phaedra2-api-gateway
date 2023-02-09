@@ -52,6 +52,10 @@ spring:
         uri: http://phaedra-measurement-service:8080
         predicates:
         - Path=/phaedra/api/*/measurement-service/**, /phaedra/measurement-service/swagger-ui.html, /phaedra/measurement-service/swagger-ui/**, /phaedra/measurement-service/v3/api-docs/**
+      - id: pipeline-service
+        uri: http://phaedra-pipeline-service:8080
+        predicates:
+        - Path=/phaedra/api/*/pipeline-service/**
       - id: datacapture-service
         uri: http://phaedra-datacapture-service:8080
         predicates:
