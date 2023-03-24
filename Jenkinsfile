@@ -11,10 +11,6 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '3'))
     }
 
-    environment {
-        REPO_PREFIX = "196229073436.dkr.ecr.eu-west-1.amazonaws.com/openanalytics/"
-        ACCOUNTID = "196229073436"
-    }
     stages {
 
         stage('Load maven cache repository from S3') {
@@ -33,8 +29,9 @@ pipeline {
                     env.GROUP_ID = sh(returnStdout: true, script: "mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.groupId -q -DforceStdout").trim()
                     env.ARTIFACT_ID = sh(returnStdout: true, script: "mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout").trim()
                     env.VERSION = sh(returnStdout: true, script: "mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout").trim()
-                    env.REPO = "openanalytics/${env.ARTIFACT_ID}"
+                    env.REGISTRY = "registry.openanalytics.eu"
                     env.MVN_ARGS = "-Dmaven.repo.local=/home/jenkins/maven-repository --batch-mode"
+                    env.MVN_EXLCUDE_PARENT = ""
                 }
             }
 
@@ -44,7 +41,7 @@ pipeline {
             steps {
                 container('builder') {
                     configFileProvider([configFile(fileId: 'maven-settings-rsb', variable: 'MAVEN_SETTINGS_RSB')]) {
-                        sh "mvn -s \$MAVEN_SETTINGS_RSB -U clean install -DskipTests -Ddocker.skip ${env.MVN_ARGS}"
+                        sh "mvn -s \$MAVEN_SETTINGS_RSB -U clean install -DskipTests -Ddocker.skip ${env.MVN_ARGS} ${env.MVN_EXLCUDE_PARENT}"
                     }
                 }
             }
@@ -54,7 +51,7 @@ pipeline {
             steps {
                 container('builder') {
                     configFileProvider([configFile(fileId: 'maven-settings-rsb', variable: 'MAVEN_SETTINGS_RSB')]) {
-                        sh "mvn -s \$MAVEN_SETTINGS_RSB test -Ddocker.skip ${env.MVN_ARGS}"
+                        sh "mvn -s \$MAVEN_SETTINGS_RSB test -Ddocker.skip ${env.MVN_ARGS} ${env.MVN_EXLCUDE_PARENT}"
                     }
                 }
             }
@@ -64,7 +61,7 @@ pipeline {
             steps {
                 container('builder') {
                     configFileProvider([configFile(fileId: 'maven-settings-rsb', variable: 'MAVEN_SETTINGS_RSB')]) {
-                        sh "mvn -s \$MAVEN_SETTINGS_RSB deploy -DskipTests -Ddocker.skip ${env.MVN_ARGS}"
+                        sh "mvn -s \$MAVEN_SETTINGS_RSB deploy -DskipTests -Ddocker.skip ${env.MVN_ARGS} ${env.MVN_EXLCUDE_PARENT}"
                     }
                 }
             }
@@ -74,7 +71,7 @@ pipeline {
             steps {
                 container('builder') {
                     configFileProvider([configFile(fileId: 'maven-settings-rsb', variable: 'MAVEN_SETTINGS_RSB')]) {
-                        sh "mvn -s \$MAVEN_SETTINGS_RSB docker:build -Ddocker.repoPrefix=${env.REPO_PREFIX} ${env.MVN_ARGS}"
+                        sh "mvn -s \$MAVEN_SETTINGS_RSB docker:build ${env.MVN_ARGS}"
                     }
                 }
             }
@@ -83,12 +80,8 @@ pipeline {
         stage('Push to OA registry') {
             steps {
                 container('builder') {
-                    sh "aws --region eu-west-1 ecr describe-repositories --repository-names ${env.REPO} || aws --region eu-west-1 ecr create-repository --repository-name ${env.REPO}"
-                    sh "aws --region eu-west-1 ecr describe-repositories --repository-names ${env.REPO}.liquibase || aws --region eu-west-1 ecr create-repository --repository-name ${env.REPO}.liquibase"
-                    sh "\$(aws ecr get-login --registry-ids '${env.ACCOUNTID}' --region 'eu-west-1' --no-include-email)"
-
                     configFileProvider([configFile(fileId: 'maven-settings-rsb', variable: 'MAVEN_SETTINGS_RSB')]) {
-                        sh "mvn -s \$MAVEN_SETTINGS_RSB docker:push -Ddocker.repoPrefix=${env.REPO_PREFIX} ${env.MVN_ARGS}"
+                        sh "mvn -s \$MAVEN_SETTINGS_RSB docker:push -Ddocker.push.registry=${REGISTRY} ${env.MVN_ARGS}"
                     }
                 }
             }
