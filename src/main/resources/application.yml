@@ -43,7 +43,7 @@ spring:
       - id: resultdata-service
         uri: http://phaedra-resultdata-service:8080
         predicates:
-        - Path=/phaedra/api/*/resultdata-service/**, /phaedra/resultdata-service/swagger-ui.html, /phaedra/resultdata-service/swagger-ui/**, /phaedra/resultdata-service/v3/api-docs/**
+        - Path=/phaedra/api/*/resultdata-service/**, /phaedra/resultdata-service/swagger-ui.html, /phaedra/resultdata-service/swagger-ui/**, /phaedra/resultdata-service/v3/api-docs/**, /phaedra/resultdata-service/graphiql, /phaedra/resultdata-service/graphql
       - id: curvedata-service
         uri: http://phaedra-curvedata-service:8080
         predicates:
