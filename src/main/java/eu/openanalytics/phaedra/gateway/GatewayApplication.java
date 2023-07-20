@@ -52,8 +52,8 @@ public class GatewayApplication {
 				.pathMatchers("/*/swagger-ui/**").permitAll()
 				.pathMatchers("/v3/api-docs/**").permitAll()
 				// GraphQL related endpoints
-				.pathMatchers("/*/graphiql").permitAll()
-				.pathMatchers("/*/graphql").permitAll()
+				.pathMatchers("/graphiql").permitAll()
+				.pathMatchers("/graphql").permitAll()
 				// The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
 				.anyExchange().authenticated()
 			.and().oauth2Login()
