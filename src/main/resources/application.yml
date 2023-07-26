@@ -63,7 +63,7 @@ spring:
       - id: charting-service
         uri: http://phaedra-charting-service:8080
         predicates:
-        - Path=/phaedra/api/*/charting-service/**, /phaedra/charting-service/swagger-ui.html, /phaedra/charting-service/swagger-ui/**, /phaedra/charting-service/v3/api-docs/**
+        - Path=/phaedra/api/*/charting-service/**, /phaedra/charting-service/swagger-ui.html, /phaedra/charting-service/swagger-ui/**, /phaedra/charting-service/v3/api-docs/**, /phaedra/charting-service/graphiql, /phaedra/charting-service/graphql
       - id: ui
         uri: http://phaedra-ui:8080
         predicates:
