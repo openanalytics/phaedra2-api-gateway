@@ -31,11 +31,11 @@ spring:
       - id: metadata-service
         uri: http://phaedra-metadata-service:8080
         predicates:
-        - Path=/phaedra/api/*/metadata-service/**, /phaedra/metadata-service/swagger-ui.html, /phaedra/metadata-service/swagger-ui/**, /phaedra/metadata-service/v3/api-docs/**
+        - Path=/phaedra/api/*/metadata-service/**, /phaedra/metadata-service/swagger-ui.html, /phaedra/metadata-service/swagger-ui/**, /phaedra/metadata-service/v3/api-docs/**, /phaedra/metadata-service/graphiql, /phaedra/metadata-service/graphql
       - id: protocol-service
         uri: http://phaedra-protocol-service:8080
         predicates:
-        - Path=/phaedra/api/*/protocol-service/**, /phaedra/protocol-service/swagger-ui.html, /phaedra/protocol-service/swagger-ui/**, /phaedra/protocol-service/v3/api-docs/**
+        - Path=/phaedra/api/*/protocol-service/**, /phaedra/protocol-service/swagger-ui.html, /phaedra/protocol-service/swagger-ui/**, /phaedra/protocol-service/v3/api-docs/**, /phaedra/protocol-service/graphiql, /phaedra/protocol-service/graphql
       - id: calculation-service
         uri: http://phaedra-calculation-service:8080
         predicates:
@@ -47,11 +47,11 @@ spring:
       - id: curvedata-service
         uri: http://phaedra-curvedata-service:8080
         predicates:
-        - Path=/phaedra/api/*/curvedata-service/**, /phaedra/curvedata-service/swagger-ui.html, /phaedra/curvedata-service/swagger-ui/**, /phaedra/curvedata-service/v3/api-docs/**
+        - Path=/phaedra/api/*/curvedata-service/**, /phaedra/curvedata-service/swagger-ui.html, /phaedra/curvedata-service/swagger-ui/**, /phaedra/curvedata-service/v3/api-docs/**, /phaedra/curvedata-service/graphiql, /phaedra/curvedata-service/graphql
       - id: meas-service
         uri: http://phaedra-measurement-service:8080
         predicates:
-        - Path=/phaedra/api/*/measurement-service/**, /phaedra/measurement-service/swagger-ui.html, /phaedra/measurement-service/swagger-ui/**, /phaedra/measurement-service/v3/api-docs/**
+        - Path=/phaedra/api/*/measurement-service/**, /phaedra/measurement-service/swagger-ui.html, /phaedra/measurement-service/swagger-ui/**, /phaedra/measurement-service/v3/api-docs/**, /phaedra/measurement-service/graphiql, /phaedra/measurement-service/graphql
       - id: pipeline-service
         uri: http://phaedra-pipeline-service:8080
         predicates:
