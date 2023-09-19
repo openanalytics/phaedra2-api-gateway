@@ -12,14 +12,12 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.1</version>
-        <relativePath/>
     </parent>
 
 	<properties>
 		<java.version>16</java.version>
 		<spring-cloud.version>2021.0.0</spring-cloud.version>
      	<fabric8.docker.version>0.37.0</fabric8.docker.version>
-        
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 		<docker.imageName>openanalytics/${project.artifactId}</docker.imageName>
@@ -107,53 +105,48 @@
             
 			<plugin>
 				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.9.0</version>
-				<configuration>
-					<header>LICENSE_HEADER</header>
-					<aggregate>true</aggregate>
-					<strictCheck>true</strictCheck>
-					<excludes>
-						<exclude>*.log</exclude>
-						<exclude>mvnw.cmd</exclude>
-						<exclude>mvnw</exclude>
-						<exclude>**/*.properties</exclude>
-						<exclude>**/*.yml</exclude>
-						<exclude>**/*.yaml</exclude>
-						<exclude>**/*.config</exclude>
-						<exclude>**/*.xml</exclude>
-						<exclude>LICENSE</exclude>
-						<exclude>LICENSE_HEADER</exclude>
-						<exclude>Dockerfile</exclude>
-						<exclude>README.md</exclude>
-						<exclude>**/*.json</exclude>
-						<exclude>.gitignore</exclude>
-						<exclude>src/deb/**</exclude>
-						<exclude>templates/**</exclude>
-						<exclude>src/main/resources/static/handlebars/node_modules/**</exclude>
-						<exclude>**/*.sql</exclude>
-						<exclude>Dockerfile.app</exclude>
-						<exclude>Dockerfile.db</exclude>
-						<exclude>Jenkinsfile</exclude>
-						<exclude>**/*.sh</exclude>
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<id>generate-copyright-headers</id>
-						<phase>process-sources</phase>
-						<goals>
-							<goal>format</goal>
-						</goals>
-					</execution>
-					<!--                    <execution>-->
-					<!--                        <id>check-copyright-headers</id>-->
-					<!--                        <phase>package</phase>-->
-					<!--                        <goals>-->
-					<!--                            <goal>check</goal>-->
-					<!--                        </goals>-->
-					<!--                    </execution>-->
-				</executions>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.9.0</version>
+                <configuration>
+                    <header>LICENSE_HEADER</header>
+                    <aggregate>true</aggregate>
+                    <strictCheck>true</strictCheck>
+                    <excludes>
+                        <exclude>**/*.log</exclude>
+                        <exclude>**/*.properties</exclude>
+                        <exclude>**/*.yml</exclude>
+                        <exclude>**/*.yaml</exclude>
+                        <exclude>**/*.config</exclude>
+                        <exclude>**/*.xml</exclude>
+                        <exclude>**/*.json</exclude>
+                        <exclude>**/*.sql</exclude>
+                        <exclude>**/*.sh</exclude>
+                        <exclude>LICENSE</exclude>
+                        <exclude>LICENSE_HEADER</exclude>
+                        <exclude>README.md</exclude>
+                        <exclude>.gitignore</exclude>
+                        <exclude>Dockerfile</exclude>
+                        <exclude>Dockerfile.app</exclude>
+                        <exclude>Dockerfile.db</exclude>
+                        <exclude>Jenkinsfile</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-copyright-headers</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                    	<id>check-copyright-headers</id>
+                    	<phase>package</phase>
+                    	<goals>
+                    		<goal>check</goal>
+                    	</goals>
+                    </execution>
+                </executions>
 			</plugin>
 		</plugins>
 	</build>

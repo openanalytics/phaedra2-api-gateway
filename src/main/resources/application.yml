@@ -97,6 +97,5 @@ spring:
 logging:
   level:
     root: INFO
-    org.springframework.cloud.gateway: DEBUG
-#    reactor.netty.http.client.HttpClientConnect: DEBUG
-    org.springframework.security: DEBUG
+    org.springframework.cloud.gateway: INFO
+    org.springframework.security: INFO
