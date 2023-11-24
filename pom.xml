@@ -6,7 +6,7 @@
     <groupId>eu.openanalytics.phaedra</groupId>
 	<artifactId>phaedra2-gateway</artifactId>
 	<name>Phaedra2 Gateway</name>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>2.0.2</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -21,6 +21,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 		<docker.imageName>openanalytics/${project.artifactId}</docker.imageName>
+        <gitflow-maven.version>1.20.0</gitflow-maven.version>
 	</properties>
 
 	<repositories>
@@ -37,6 +38,10 @@
             <id>oa-nexus-snapshots</id>
             <url>https://nexus.openanalytics.eu/repository/snapshots/</url>
         </repository>
+        <repository>
+            <id>oa-nexus-releases</id>
+            <url>https://nexus.openanalytics.eu/repository/releases/</url>
+        </repository>
     </repositories>
 
 	<dependencies>
@@ -52,6 +57,11 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 		</dependency>
+        <dependency>
+			<groupId>com.amashchenko.maven.plugin</groupId>
+            <artifactId>gitflow-maven-plugin</artifactId>
+            <version>${gitflow-maven.version}</version>
+        </dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -102,7 +112,7 @@
 					</execution>
 				</executions>
 			</plugin>
-            
+
 			<plugin>
 				<groupId>com.mycila.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
@@ -148,6 +158,12 @@
                     </execution>
                 </executions>
 			</plugin>
+			
+			<plugin>
+		        <groupId>com.amashchenko.maven.plugin</groupId>
+		        <artifactId>gitflow-maven-plugin</artifactId>
+		        <version>${gitflow-maven.version}</version>
+		    </plugin>
 		</plugins>
 	</build>
 
