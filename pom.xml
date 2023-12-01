@@ -21,7 +21,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 		<docker.imageName>openanalytics/${project.artifactId}</docker.imageName>
-        <gitflow-maven.version>1.20.0</gitflow-maven.version>
+<!--        <gitflow-maven.version>1.20.0</gitflow-maven.version>-->
 	</properties>
 
 	<repositories>
@@ -57,11 +57,11 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 		</dependency>
-        <dependency>
-			<groupId>com.amashchenko.maven.plugin</groupId>
-            <artifactId>gitflow-maven-plugin</artifactId>
-            <version>${gitflow-maven.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--			<groupId>com.amashchenko.maven.plugin</groupId>-->
+<!--            <artifactId>gitflow-maven-plugin</artifactId>-->
+<!--            <version>${gitflow-maven.version}</version>-->
+<!--        </dependency>-->
 	</dependencies>
 
 	<dependencyManagement>
@@ -158,12 +158,12 @@
                     </execution>
                 </executions>
 			</plugin>
-			
-			<plugin>
-		        <groupId>com.amashchenko.maven.plugin</groupId>
-		        <artifactId>gitflow-maven-plugin</artifactId>
-		        <version>${gitflow-maven.version}</version>
-		    </plugin>
+
+<!--			<plugin>-->
+<!--		        <groupId>com.amashchenko.maven.plugin</groupId>-->
+<!--		        <artifactId>gitflow-maven-plugin</artifactId>-->
+<!--		        <version>${gitflow-maven.version}</version>-->
+<!--		    </plugin>-->
 		</plugins>
 	</build>
 
