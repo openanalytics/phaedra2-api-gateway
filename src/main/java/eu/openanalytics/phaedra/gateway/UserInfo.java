@@ -30,6 +30,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
 
 @CrossOrigin
 @RestController
@@ -46,4 +49,11 @@ public class UserInfo {
 
 		return ResponseEntity.notFound().build();
     }
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request) throws ServletException {
+		request.logout();
+		// Optionally redirect the user to where you want them to go after logout
+		return "redirect:https://phaedra.poc.openanalytics.io/phaedra/ui";
+	}
 }
