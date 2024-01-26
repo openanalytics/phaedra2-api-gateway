@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 
 @CrossOrigin
 @RestController
@@ -24,10 +25,8 @@ public class LogoutController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @RequestMapping(value ="/logout", method = RequestMethod.GET)
-    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.getSession().invalidate();
+    public void logout(Principal principal) throws IOException {
         String logoutUrl = logoutURI + "?redirect_uri=https://phaedra.poc.openanalytics.io/phaedra/ui";
         logger.info(logoutUrl);
-        response.sendRedirect(logoutUrl);
     }
 }
