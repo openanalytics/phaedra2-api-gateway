@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 
 @RestController
 public class LogoutController {
@@ -25,7 +26,7 @@ public class LogoutController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @RequestMapping(value = "/userLogout", method = RequestMethod.GET)
-    public void logout(HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal OidcUser principal) throws IOException {
+    public void logout(Principal principal) throws IOException {
         String logoutUrl = logoutURI + "?redirect_uri=https://phaedra.poc.openanalytics.io/phaedra/ui";
         logger.info(logoutUrl);
     }
