@@ -25,6 +25,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 /**
@@ -35,9 +36,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @SpringBootApplication
 public class GatewayApplication {
-
-	@Autowired
-	private PhaedraLogoutHandler logoutHandler;
 
 	public static void main(String[] args) {
 		SpringApplication app = new SpringApplication(GatewayApplication.class);
@@ -61,8 +59,13 @@ public class GatewayApplication {
 				// The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
 				.anyExchange().authenticated()
 			.and().oauth2Login()
-			.and().logout().logoutHandler(logoutHandler)
+			.and().logout().logoutHandler(phaedraLogoutHandler())
 			.and().csrf().disable()
 			.build();
+	}
+
+	@Bean
+	public PhaedraLogoutHandler phaedraLogoutHandler() {
+		return new PhaedraLogoutHandler();
 	}
 }
