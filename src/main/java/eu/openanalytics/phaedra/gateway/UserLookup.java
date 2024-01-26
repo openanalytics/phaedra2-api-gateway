@@ -20,26 +20,20 @@
  */
 package eu.openanalytics.phaedra.gateway;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import reactor.core.publisher.Mono;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Notes:
@@ -51,13 +45,13 @@ import reactor.core.publisher.Mono;
 public class UserLookup {
 
 	private static final RestTemplate REST_TEMPLATE = new RestTemplate();
-	
+
 	@Autowired
 	private ClientCredentialsTokenGenerator tokenGenerator;
-	
+
 	@Value("${gateway.user-lookup.endpoint}")
 	private String endpointURL;
-	
+
 	@RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Map<String,String>> getUsers() {
 		return tokenGenerator.obtainToken()
@@ -68,9 +62,9 @@ public class UserLookup {
 		        HttpEntity<?> request = new HttpEntity<>(headers);
 				ResponseEntity<String> response = REST_TEMPLATE.exchange(endpointURL, HttpMethod.GET, request, String.class);
 				String body = response.getBody();
-				
+
 				Map<String,String> users = new HashMap<>();
-				
+
 				ObjectMapper mapper = new ObjectMapper();
 				try {
 					@SuppressWarnings("unchecked")
@@ -81,7 +75,7 @@ public class UserLookup {
 				} catch (Exception e) {
 					throw new RuntimeException("Failed to parse user information", e);
 				}
-				
+
 				return users;
 		});
 	}
