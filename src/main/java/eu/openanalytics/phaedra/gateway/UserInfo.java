@@ -20,6 +20,11 @@
  */
 package eu.openanalytics.phaedra.gateway;
 
+import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
+import org.keycloak.representations.AccessToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -36,6 +41,8 @@ import java.security.Principal;
 @RestController
 public class UserInfo {
 
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
 	@RequestMapping(value = "/userinfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getUserInfo(Principal principal) {
 		OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) principal;
@@ -46,4 +53,15 @@ public class UserInfo {
 
 		return ResponseEntity.notFound().build();
     }
+
+	@RequestMapping(value = "/v2/userinfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public AccessToken getUserInfoV2(KeycloakAuthenticationToken authentication) {
+		SimpleKeycloakAccount account = (SimpleKeycloakAccount) authentication.getDetails();
+		AccessToken token = account.getKeycloakSecurityContext().getToken();
+		//Username, other way
+		logger.info(authentication.getPrincipal().toString());
+		//Email
+		logger.info(token.getEmail());
+		return token;
+	}
 }
