@@ -60,7 +60,6 @@ public class GatewayApplication {
 				// The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
 				.anyExchange().authenticated()
 			.and().oauth2Login()
-			.and().logout().logoutUrl("/logout")
 			.and().csrf().disable()
 			.build();
 	}
