@@ -19,7 +19,7 @@ public class LogoutController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @RequestMapping(value ="/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public void logout() throws IOException {
         String logoutUrl = logoutURI + "?redirect_uri=https://phaedra.poc.openanalytics.io/phaedra/ui";
         logger.info(logoutUrl);
