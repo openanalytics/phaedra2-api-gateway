@@ -53,15 +53,4 @@ public class UserInfo {
 
 		return ResponseEntity.notFound().build();
     }
-
-	@RequestMapping(value = "/v2/userinfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public AccessToken getUserInfoV2(KeycloakAuthenticationToken authentication) {
-		SimpleKeycloakAccount account = (SimpleKeycloakAccount) authentication.getDetails();
-		AccessToken token = account.getKeycloakSecurityContext().getToken();
-		//Username, other way
-		logger.info(authentication.getPrincipal().toString());
-		//Email
-		logger.info(token.getEmail());
-		return token;
-	}
 }
