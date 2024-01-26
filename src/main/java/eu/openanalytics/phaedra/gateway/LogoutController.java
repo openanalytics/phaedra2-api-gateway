@@ -3,6 +3,8 @@ package eu.openanalytics.phaedra.gateway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -26,9 +28,9 @@ public class LogoutController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @RequestMapping(value = "/userLogout", method = RequestMethod.GET)
-    public void logout(HttpServletRequest request, HttpServletResponse response, Principal principal) throws IOException {
+    public void logout(Principal principal) throws IOException {
         String logoutUrl = logoutURI + "?redirect_uri=https://phaedra.poc.openanalytics.io/phaedra/ui";
         logger.info(logoutUrl);
-
+        REST_TEMPLATE.exchange(logoutUrl, HttpMethod.GET, HttpEntity.EMPTY, Void.class);
     }
 }
