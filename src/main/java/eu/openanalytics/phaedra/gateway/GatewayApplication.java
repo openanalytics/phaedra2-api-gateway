@@ -37,6 +37,9 @@ import org.springframework.security.web.server.authentication.logout.ServerLogou
 @SpringBootApplication
 public class GatewayApplication {
 
+	@Autowired
+	private PhaedraLogoutHandler logoutHandler;
+
 	public static void main(String[] args) {
 		SpringApplication app = new SpringApplication(GatewayApplication.class);
 		app.run(args);
@@ -49,7 +52,6 @@ public class GatewayApplication {
 				.pathMatchers("/api/**").permitAll()
 				// The userinfo endpoint is accessible freely. Without an authenticated session, there is nothing to see.
 				.pathMatchers("/userinfo").permitAll()
-				.pathMatchers("/logout").permitAll()
 				// The Swagger UI pages is accessible freely (for now)
 				.pathMatchers("/*/swagger-ui.html").permitAll()
 				.pathMatchers("/*/swagger-ui/**").permitAll()
@@ -60,6 +62,7 @@ public class GatewayApplication {
 				// The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
 				.anyExchange().authenticated()
 			.and().oauth2Login()
+			.and().logout().logoutHandler(logoutHandler)
 			.and().csrf().disable()
 			.build();
 	}
