@@ -53,9 +53,9 @@ public class GatewayApplication {
         app.run(args);
     }
 
-//    @Bean
-//    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-//        return http.authorizeExchange()
+    @Bean
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+        return http.authorizeExchange()
 //                // API requests are routed freely (for now), the endpoint may choose to deny the request.
 ////                .pathMatchers("/api/**").permitAll()
 //                // The userinfo endpoint is accessible freely. Without an authenticated session, there is nothing to see.
@@ -68,11 +68,10 @@ public class GatewayApplication {
 ////                .pathMatchers("/graphiql").permitAll()
 ////                .pathMatchers("/graphql").permitAll()
 //                // The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
-//                .anyExchange().authenticated()
-//                .and().logout().logoutSuccessHandler(phaedraLogoutHandler)
-//                .and().oauth2Login()
-//                .and().csrf().disable()
-//
-//                .build();
-//    }
+                .anyExchange().authenticated()
+                .and().logout().logoutSuccessHandler(phaedraLogoutHandler)
+                .and().oauth2Login()
+                .and().csrf().disable()
+                .build();
+    }
 }
