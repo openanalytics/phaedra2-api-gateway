@@ -39,15 +39,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @SpringBootApplication
 public class GatewayApplication {
 
-    @Value("${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/logout")
-    private String logoutURI;
-
-    @Autowired
-    private PhaedraLogoutHandler phaedraLogoutHandler;
-
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
-
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(GatewayApplication.class);
         app.run(args);
@@ -62,15 +53,14 @@ public class GatewayApplication {
                 .pathMatchers("/userinfo").permitAll()
                 .pathMatchers("/userLogout").permitAll()
 //                // The Swagger UI pages is accessible freely (for now)
-//                .pathMatchers("/*/swagger-ui.html").permitAll()
-//                .pathMatchers("/*/swagger-ui/**").permitAll()
-//                .pathMatchers("/v3/api-docs/**").permitAll()
+                .pathMatchers("/*/swagger-ui.html").permitAll()
+                .pathMatchers("/*/swagger-ui/**").permitAll()
+                .pathMatchers("/v3/api-docs/**").permitAll()
 //                // GraphQL related endpoints are routed freely (for now)
                 .pathMatchers("/graphiql").permitAll()
                 .pathMatchers("/graphql").permitAll()
 //                // The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
                 .anyExchange().authenticated()
-                .and().logout().logoutUrl("/userLogout").logoutSuccessHandler(phaedraLogoutHandler)
                 .and().oauth2Login()
                 .and().csrf().disable()
                 .build();
