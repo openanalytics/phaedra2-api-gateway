@@ -25,11 +25,13 @@ public class LogoutController {
     @Value("${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/logout")
     private String logoutURI;
 
+    private String redirectURI;
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @RequestMapping(value = "/userLogout", method = RequestMethod.GET)
     public void logout(Principal principal) throws IOException {
-        String logoutUrl = logoutURI + "?redirect_uri=https://phaedra.poc.openanalytics.io/phaedra/ui";
+        String logoutUrl = String.format("%s?redirect_uri=%s", logoutURI, redirectURI);
         logger.info(logoutUrl);
         REST_TEMPLATE.exchange(logoutUrl, HttpMethod.GET, HttpEntity.EMPTY, Void.class);
     }
