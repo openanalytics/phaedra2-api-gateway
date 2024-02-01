@@ -35,7 +35,7 @@ public class PhaedraLogoutHandler extends DelegatingServerLogoutHandler {
     public Mono<Void> logout(WebFilterExchange exchange, Authentication authentication) {
         logger.info("Enter PhaedraLogoutHandler ... ");
         logger.info("Logout url: " + String.format("%s?redirect_url=%s", logoutURI, redirectURI));
-        REST_TEMPLATE.exchange(logoutURI, HttpMethod.GET, HttpEntity.EMPTY, Void.class);
+        REST_TEMPLATE.exchange(String.format("%s?redirect_url=%s", logoutURI, redirectURI), HttpMethod.GET, HttpEntity.EMPTY, Void.class);
         return super.logout(exchange, authentication);
     }
 }
