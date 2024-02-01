@@ -59,7 +59,7 @@ public class GatewayApplication {
                 .pathMatchers("/graphql").permitAll()
                 // The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
                 .anyExchange().authenticated()
-                .and().logout().logoutUrl("/phaedra/logout").logoutHandler(new PhaedraLogoutHandler(new WebSessionServerLogoutHandler(), new SecurityContextServerLogoutHandler()))
+                .and().logout().logoutUrl("/logout").logoutHandler(new PhaedraLogoutHandler(new WebSessionServerLogoutHandler(), new SecurityContextServerLogoutHandler()))
                 .and().oauth2Login()
                 .and().csrf().disable()
                 .build();
