@@ -17,8 +17,8 @@ import java.util.Collection;
 public class PhaedraLogoutHandler extends DelegatingServerLogoutHandler {
     private static final RestTemplate REST_TEMPLATE = new RestTemplate();
 
-    @Value("${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/logout")
-    private String logoutURI;
+//    @Value("${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/logout")
+    private String logoutURI = "https://keycloak.phaedra.poc.openanalytics.io/auth/realms/phaedra2/protocol/openid-connect/logout";
     private String redirectURI = "https://phaedra.poc.openanalytics.io/phaedra/ui";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -34,6 +34,7 @@ public class PhaedraLogoutHandler extends DelegatingServerLogoutHandler {
     @Override
     public Mono<Void> logout(WebFilterExchange exchange, Authentication authentication) {
         logger.info("Enter PhaedraLogoutHandler ... ");
+        logger.info("Logout url: " + String.format("%s?redirect_url=%s", logoutURI, redirectURI));
         REST_TEMPLATE.exchange(logoutURI, HttpMethod.GET, HttpEntity.EMPTY, Void.class);
         return super.logout(exchange, authentication);
     }
