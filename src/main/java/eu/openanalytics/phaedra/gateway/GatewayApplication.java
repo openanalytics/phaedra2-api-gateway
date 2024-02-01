@@ -25,6 +25,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
+import org.springframework.security.web.server.authentication.logout.WebSessionServerLogoutHandler;
 
 /**
  * https://spring.io/blog/2019/08/16/securing-services-with-spring-cloud-gateway
@@ -57,7 +59,7 @@ public class GatewayApplication {
                 .pathMatchers("/graphql").permitAll()
                 // The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
                 .anyExchange().authenticated()
-                .and().logout().logoutHandler(new PhaedraLogoutHandler())
+                .and().logout().logoutHandler(new PhaedraLogoutHandler(new WebSessionServerLogoutHandler(), new SecurityContextServerLogoutHandler()))
                 .and().oauth2Login()
                 .and().csrf().disable()
                 .build();

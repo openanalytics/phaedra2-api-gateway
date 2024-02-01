@@ -8,8 +8,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.server.WebFilterExchange;
 import org.springframework.security.web.server.authentication.logout.DelegatingServerLogoutHandler;
+import org.springframework.security.web.server.authentication.logout.ServerLogoutHandler;
 import org.springframework.web.client.RestTemplate;
 import reactor.core.publisher.Mono;
+
+import java.util.Collection;
 
 public class PhaedraLogoutHandler extends DelegatingServerLogoutHandler {
     private static final RestTemplate REST_TEMPLATE = new RestTemplate();
@@ -19,6 +22,14 @@ public class PhaedraLogoutHandler extends DelegatingServerLogoutHandler {
     private String redirectURI = "https://phaedra.poc.openanalytics.io/phaedra/ui";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    public PhaedraLogoutHandler(ServerLogoutHandler... delegates) {
+        super(delegates);
+    }
+
+    public PhaedraLogoutHandler(Collection<ServerLogoutHandler> delegates) {
+        super(delegates);
+    }
 
     @Override
     public Mono<Void> logout(WebFilterExchange exchange, Authentication authentication) {
