@@ -39,8 +39,7 @@ public class LogoutController {
                 })
                 .then(Mono.defer(() -> Mono.just(exchange.getResponse())))
                 .flatMap(response -> {
-                    String logoutUri = keycloakAuthUri.replace("/auth", "/logout")
-                            +"?redirect_uri=" + exchange.getRequest().getURI();
+                    String logoutUri = "https://keycloak.phaedra.poc.openanalytics.io/auth/realms/phaedra2/protocol/openid-connect/logout?redirect_uri=https://phaedra.poc.openanalytics.io/phaedra/ui";
                     logger.info(String.format("logoutUri: %s", logoutUri));
                     response.getHeaders().setLocation(URI.create(logoutUri));
                     return response.setComplete();
