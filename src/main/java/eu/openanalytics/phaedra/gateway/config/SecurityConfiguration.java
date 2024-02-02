@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                 .pathMatchers("/api/**").permitAll()
                 // The userinfo endpoint is accessible freely. Without an authenticated session, there is nothing to see.
                 .pathMatchers("/userinfo").permitAll()
+                .pathMatchers("/oauth2/logout").permitAll()
                 // The Swagger UI pages is accessible freely (for now)
 //                .pathMatchers("/*/swagger-ui.html").permitAll()
 //                .pathMatchers("/*/swagger-ui/**").permitAll()
@@ -43,7 +44,6 @@ public class SecurityConfiguration {
                 .pathMatchers("/graphql").permitAll()
                 // The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
                 .anyExchange().authenticated()
-//                .and().logout().logoutHandler(logoutHandler()).logoutSuccessHandler(oidcLogoutSuccessHandler())
                 .and().oauth2Login()
                 .and().csrf().disable()
                 .build();
