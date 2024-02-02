@@ -1,6 +1,8 @@
 package eu.openanalytics.phaedra.gateway.config;
 
 import eu.openanalytics.phaedra.gateway.PhaedraLogoutHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
@@ -18,6 +20,8 @@ public class SecurityConfiguration {
 
     private String logoutURI = "https://keycloak.phaedra.poc.openanalytics.io/auth/realms/phaedra2/protocol/openid-connect/logout";
     private String redirectURI = "https://phaedra.poc.openanalytics.io/phaedra/ui";
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public SecurityConfiguration(ReactiveClientRegistrationRepository clientRegistrationRepository) {
         this.clientRegistrationRepository = clientRegistrationRepository;
@@ -50,6 +54,7 @@ public class SecurityConfiguration {
     }
 
     private ServerLogoutSuccessHandler oidcLogoutSuccessHandler() {
+        logger.info("Creating ServerLogoutSuccessHandler ...");
         OidcClientInitiatedServerLogoutSuccessHandler logoutSuccessHandler = new OidcClientInitiatedServerLogoutSuccessHandler(clientRegistrationRepository);
         logoutSuccessHandler.setPostLogoutRedirectUri("https://phaedra.poc.openanalytics.io/phaedra/ui");
         return logoutSuccessHandler;
