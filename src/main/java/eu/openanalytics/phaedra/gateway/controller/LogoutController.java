@@ -5,6 +5,7 @@ import org.springframework.security.web.server.context.ServerSecurityContextRepo
 import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
 import org.springframework.security.web.server.savedrequest.ServerRequestCache;
 import org.springframework.security.web.server.savedrequest.WebSessionServerRequestCache;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
@@ -12,6 +13,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 
+@CrossOrigin
 @RestController
 public class LogoutController {
     @Value("${spring.security.oauth2.client.provider.keycloak.authorization-uri}")
@@ -23,7 +25,7 @@ public class LogoutController {
     private final ServerSecurityContextRepository securityContextRepository = new WebSessionServerSecurityContextRepository();
     private final ServerRequestCache requestCache = new WebSessionServerRequestCache();
 
-    @GetMapping("/logout")
+    @GetMapping("/oauth/logout")
     public Mono<Void> logout(ServerWebExchange exchange) {
         return exchange.getSession()
                 .flatMap(webSession -> {
