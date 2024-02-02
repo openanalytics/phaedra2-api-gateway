@@ -41,6 +41,7 @@ public class LogoutController {
                 .flatMap(response -> {
                     String logoutUri = keycloakAuthUri.replace("/auth", "/protocol/openid-connect/logout")
                             +"?redirect_uri=" + exchange.getRequest().getURI();
+                    logger.info(String.format("logoutUri: %s", logoutUri));
                     response.getHeaders().setLocation(URI.create(logoutUri));
                     return response.setComplete();
                 });
