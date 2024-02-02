@@ -20,13 +20,15 @@
  */
 package eu.openanalytics.phaedra.gateway;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.oauth2.client.oidc.web.server.logout.OidcClientInitiatedServerLogoutSuccessHandler;
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
-import org.springframework.security.web.server.authentication.logout.WebSessionServerLogoutHandler;
+import org.springframework.security.web.server.authentication.logout.*;
 
 /**
  * https://spring.io/blog/2019/08/16/securing-services-with-spring-cloud-gateway
@@ -40,27 +42,5 @@ public class GatewayApplication {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(GatewayApplication.class);
         app.run(args);
-    }
-
-    @Bean
-    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        return http.authorizeExchange()
-                // API requests are routed freely (for now), the endpoint may choose to deny the request.
-                .pathMatchers("/api/**").permitAll()
-                // The userinfo endpoint is accessible freely. Without an authenticated session, there is nothing to see.
-                .pathMatchers("/userinfo").permitAll()
-                // The Swagger UI pages is accessible freely (for now)
-//                .pathMatchers("/*/swagger-ui.html").permitAll()
-//                .pathMatchers("/*/swagger-ui/**").permitAll()
-//                .pathMatchers("/v3/api-docs/**").permitAll()
-                // GraphQL related endpoints are routed freely (for now)
-                .pathMatchers("/graphiql").permitAll()
-                .pathMatchers("/graphql").permitAll()
-                // The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
-                .anyExchange().authenticated()
-                .and().logout().logoutUrl("/logout").logoutHandler(new PhaedraLogoutHandler(new WebSessionServerLogoutHandler(), new SecurityContextServerLogoutHandler()))
-                .and().oauth2Login()
-                .and().csrf().disable()
-                .build();
     }
 }

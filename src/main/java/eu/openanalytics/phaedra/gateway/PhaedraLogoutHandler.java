@@ -17,7 +17,6 @@ import java.util.Collection;
 public class PhaedraLogoutHandler extends DelegatingServerLogoutHandler {
     private static final RestTemplate REST_TEMPLATE = new RestTemplate();
 
-//    @Value("${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/logout")
     private String logoutURI = "https://keycloak.phaedra.poc.openanalytics.io/auth/realms/phaedra2/protocol/openid-connect/logout";
     private String redirectURI = "https://phaedra.poc.openanalytics.io/phaedra/ui";
 
