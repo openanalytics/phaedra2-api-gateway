@@ -43,7 +43,7 @@ public class SecurityConfiguration {
                 .pathMatchers("/graphql").permitAll()
                 // The remaining requests, i.e. UI requests, must follow the OAuth2 authorization flow
                 .anyExchange().authenticated()
-                .and().logout().logoutHandler(logoutHandler()).logoutSuccessHandler(oidcLogoutSuccessHandler())
+//                .and().logout().logoutHandler(logoutHandler()).logoutSuccessHandler(oidcLogoutSuccessHandler())
                 .and().oauth2Login()
                 .and().csrf().disable()
                 .build();

@@ -76,8 +76,6 @@ spring:
         registration:
           keycloak:
             provider: keycloak
-#            client-id: phaedra2-gateway
-#            client-secret: ???
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope: openid,profile,email
