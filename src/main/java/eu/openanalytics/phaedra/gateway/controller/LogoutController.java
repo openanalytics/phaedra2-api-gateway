@@ -1,5 +1,7 @@
 package eu.openanalytics.phaedra.gateway.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.web.server.context.ServerSecurityContextRepository;
 import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
@@ -25,8 +27,11 @@ public class LogoutController {
     private final ServerSecurityContextRepository securityContextRepository = new WebSessionServerSecurityContextRepository();
     private final ServerRequestCache requestCache = new WebSessionServerRequestCache();
 
-    @GetMapping("/oauth/logout")
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    @GetMapping("/userlogout")
     public Mono<Void> logout(ServerWebExchange exchange) {
+        logger.debug(String.format("keycloakAuthUri: %s, clientId: %s", keycloakAuthUri, clientId));
         return exchange.getSession()
                 .flatMap(webSession -> {
                     webSession.invalidate();
