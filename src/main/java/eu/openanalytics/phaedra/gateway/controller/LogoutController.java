@@ -39,7 +39,7 @@ public class LogoutController {
                 })
                 .then(Mono.defer(() -> Mono.just(exchange.getResponse())))
                 .flatMap(response -> {
-                    String logoutUri = keycloakAuthUri.replace("/auth", "/protocol/openid-connect/logout")
+                    String logoutUri = keycloakAuthUri.replace("/auth", "/logout")
                             +"?redirect_uri=" + exchange.getRequest().getURI();
                     logger.info(String.format("logoutUri: %s", logoutUri));
                     response.getHeaders().setLocation(URI.create(logoutUri));
