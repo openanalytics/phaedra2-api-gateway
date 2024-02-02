@@ -31,7 +31,7 @@ public class LogoutController {
 
     @GetMapping("/userlogout")
     public Mono<Void> logout(ServerWebExchange exchange) {
-        logger.debug(String.format("keycloakAuthUri: %s, clientId: %s", keycloakAuthUri, clientId));
+        logger.info(String.format("keycloakAuthUri: %s, clientId: %s", keycloakAuthUri, clientId));
         return exchange.getSession()
                 .flatMap(webSession -> {
                     webSession.invalidate();
