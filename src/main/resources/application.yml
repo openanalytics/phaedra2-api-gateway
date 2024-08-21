@@ -1,5 +1,7 @@
 keycloak-base-url: http://keycloak:8080
-
+keycloak-logout-url: ${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/logout
+redirect-uri: http://localhost:8080/phaedra/ui/
+  
 gateway:
   user-lookup:
     client-reg-id: keycloakClientCred
@@ -102,6 +104,3 @@ logging:
     root: INFO
     org.springframework.cloud.gateway: DEBUG
     org.springframework.security: DEBUG
-
-  keycloak-logout-url: ${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/logout
-  redirect-uri: https://phaedra.poc.openanalytics.io/phaedra/ui/
