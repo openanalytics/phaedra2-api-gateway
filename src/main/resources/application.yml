@@ -96,8 +96,12 @@ spring:
             user-name-attribute: sub
             jwk-set-uri: ${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/certs
 
+
 logging:
   level:
     root: INFO
     org.springframework.cloud.gateway: DEBUG
     org.springframework.security: DEBUG
+
+  keycloak-logout-url: ${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/logout
+  redirect-uri: https://phaedra.poc.openanalytics.io/phaedra/ui/
