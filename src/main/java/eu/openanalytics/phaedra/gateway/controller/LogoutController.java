@@ -46,7 +46,7 @@ public class LogoutController {
     @Value("${spring.security.oauth2.client.registration.keycloak.client-id}")
     private String clientId;
 
-    @Value("${keycloak-logout-url")
+    @Value("${keycloak-logout-url}")
     private String keycloakLogoutUrl;
 
     @Value("${redirect-uri}")
