@@ -46,6 +46,12 @@ public class LogoutController {
     @Value("${spring.security.oauth2.client.registration.keycloak.client-id}")
     private String clientId;
 
+    @Value("${keycloak-logout-url}")
+    private String keycloakLogoutUrl;
+
+    @Value("${redirect-uri}")
+    private String redirectUri;
+
     private final ServerSecurityContextRepository securityContextRepository = new WebSessionServerSecurityContextRepository();
     private final ServerRequestCache requestCache = new WebSessionServerRequestCache();
     private final ServerRedirectStrategy redirectStrategy = new DefaultServerRedirectStrategy();
@@ -65,7 +71,7 @@ public class LogoutController {
     }
 
     private URI createLogoutUri(ServerWebExchange exchange) {
-        String logoutUri = "https://keycloak.phaedra.poc.openanalytics.io/auth/realms/phaedra2/protocol/openid-connect/logout?redirect_uri=https://phaedra.poc.openanalytics.io/phaedra/ui";
+        String logoutUri = String.format(keycloakLogoutUrl + "?post_logout_redirect_uri=%s&client_id=%s", redirectUri, clientId);
         return URI.create(logoutUri);
     }
 }
