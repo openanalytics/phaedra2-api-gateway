@@ -59,7 +59,6 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 container('builder') {
-                    sh 'docker help'
                     configFileProvider([configFile(fileId: 'maven-settings-rsb', variable: 'MAVEN_SETTINGS_RSB')]) {
                         sh "mvn -s \$MAVEN_SETTINGS_RSB validate docker:build ${env.MVN_ARGS}"
                     }
