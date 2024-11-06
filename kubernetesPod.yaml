@@ -14,7 +14,7 @@ spec:
         privileged: true
       volumeMounts:
         - name: dockerconfig
-          mountPath: /.docker/config.json
+          mountPath: /root/.docker/config.json
           subPath: data
       resources:
         requests:
