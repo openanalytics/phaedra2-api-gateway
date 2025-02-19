@@ -65,7 +65,7 @@ spring:
       - id: phaedra-scriptengine-r-service
         uri: http://phaedra-scriptengine-r-service:8080
         predicates:
-        - Path=/phaedra/api/*/phaedra-scriptengine-r-service/**
+        - Path=/phaedra/api/*/r-engine-service/**
       - id: charting-service
         uri: http://phaedra-charting-service:8080
         predicates:
