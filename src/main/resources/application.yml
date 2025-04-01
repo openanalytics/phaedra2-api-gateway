@@ -1,7 +1,7 @@
 keycloak-base-url: http://keycloak:8080
 keycloak-logout-url: ${keycloak-base-url}/auth/realms/phaedra2/protocol/openid-connect/logout
 redirect-uri: http://localhost:8080/phaedra/ui/
-  
+
 gateway:
   user-lookup:
     client-reg-id: keycloakClientCred
@@ -62,6 +62,10 @@ spring:
         uri: http://phaedra-datacapture-service:8080
         predicates:
         - Path=/phaedra/api/*/datacapture-service/**
+      - id: scriptengine-r-worker-v2
+        uri: http://phaedra-scriptengine-r-worker-v2:8080
+        predicates:
+        - Path=/phaedra/api/*/scriptengine-r-worker-v2/**
       - id: charting-service
         uri: http://phaedra-charting-service:8080
         predicates:
