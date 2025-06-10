@@ -30,6 +30,10 @@ spring:
         uri: http://phaedra-plate-service:8080
         predicates:
         - Path=/phaedra/api/*/plate-service/**, /phaedra/plate-service/swagger-ui.html, /phaedra/plate-service/swagger-ui/**, /phaedra/plate-service/v3/api-docs/**, /phaedra/plate-service/graphiql, /phaedra/plate-service/graphql
+      - id: platedefinition-service
+        uri: http://phaedra-platedefinition-service:8080
+        predicates:
+        - Path=/phaedra/api/*/platedefinition-service/**, /phaedra/platedefinition-service/**
       - id: metadata-service
         uri: http://phaedra-metadata-service:8080
         predicates:
