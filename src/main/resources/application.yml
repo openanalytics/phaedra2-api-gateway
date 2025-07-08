@@ -29,51 +29,51 @@ spring:
       - id: plate-service
         uri: http://phaedra-plate-service:8080
         predicates:
-        - Path=/phaedra/**/plate-service/**
+        - Path=/phaedra/api/*/plate-service/**, /phaedra/plate-service/**
       - id: platedefinition-service
         uri: http://phaedra-platedefinition-service:8080
         predicates:
-        - Path=/phaedra/**/platedefinition-service/**
+        - Path=/phaedra/api/*/platedefinition-service/**, /phaedra/platedefinition-service/**
       - id: metadata-service
         uri: http://phaedra-metadata-service:8080
         predicates:
-        - Path=/phaedra/**/metadata-service/**
+        - Path=/phaedra/api/*/metadata-service/**, /phaedra/metadata-service/**
       - id: protocol-service
         uri: http://phaedra-protocol-service:8080
         predicates:
-        - Path=/phaedra/**/protocol-service/**
+        - Path=/phaedra/api/*/protocol-service/**, /phaedra/protocol-service/**
       - id: calculation-service
         uri: http://phaedra-calculation-service:8080
         predicates:
-        - Path=/phaedra/**/calculation-service/**
+        - Path=/phaedra/api/*/calculation-service/**, /phaedra/calculation-service/**
       - id: resultdata-service
         uri: http://phaedra-resultdata-service:8080
         predicates:
-        - Path=/phaedra/**/resultdata-service/**
+        - Path=/phaedra/api/*/resultdata-service/**, /phaedra/resultdata-service/**
       - id: measurement-service
         uri: http://phaedra-measurement-service:8080
         predicates:
-        - Path=/phaedra/**/measurement-service/**
+        - Path=/phaedra/api/*/measurement-service/**, /phaedra/measurement-service/**
       - id: pipeline-service
         uri: http://phaedra-pipeline-service:8080
         predicates:
-        - Path=/phaedra/**/pipeline-service/**
+        - Path=/phaedra/api/*/pipeline-service/**, /phaedra/pipeline-service/**
       - id: datacapture-service
         uri: http://phaedra-datacapture-service:8080
         predicates:
-        - Path=/phaedra/**/datacapture-service/**
+        - Path=/phaedra/api/*/datacapture-service/**, /phaedra/datacapture-service/**
       - id: scriptengine-r-worker
         uri: http://phaedra-scriptengine-r-worker:8080
         predicates:
-        - Path=/phaedra/**/scriptengine-r-worker/**
+        - Path=/phaedra/api/*/scriptengine-r-worker/**, /phaedra/scriptengine-r-worker/**
       - id: charting-service
         uri: http://phaedra-charting-service:8080
         predicates:
-        - Path=/phaedra/**/charting-service/**
+        - Path=/phaedra/api/*/charting-service/**, /phaedra/charting-service/**
       - id: query-service
         uri: http://phaedra-query-service:8080
         predicates:
-        - Path=/phaedra/**/query-service/**
+        - Path=/phaedra/api/*/query-service/**, /phaedra/query-service/**
       - id: ui
         uri: http://phaedra-ui:8080
         predicates:
