@@ -23,61 +23,57 @@ spring:
             allowedMethods: "*"
             allowedHeaders: "*"
       default-filters:
-      - RewritePath=/phaedra/api/v.+/(?<service>.*service)/(?<segment>.*), /phaedra/$\{service}/$\{segment}
+      - RewritePath=/phaedra/*v.+/(?<service>.*service)/(?<segment>.*), /phaedra/$\{service}/$\{segment}
       - TokenRelay=
       routes:
       - id: plate-service
         uri: http://phaedra-plate-service:8080
         predicates:
-        - Path=/phaedra/api/*/plate-service/**, /phaedra/plate-service/swagger-ui.html, /phaedra/plate-service/swagger-ui/**, /phaedra/plate-service/v3/api-docs/**, /phaedra/plate-service/graphiql, /phaedra/plate-service/graphql
+        - Path=/phaedra/**/plate-service/**
       - id: platedefinition-service
         uri: http://phaedra-platedefinition-service:8080
         predicates:
-        - Path=/phaedra/api/*/platedefinition-service/**, /phaedra/platedefinition-service/**
+        - Path=/phaedra/**/platedefinition-service/**
       - id: metadata-service
         uri: http://phaedra-metadata-service:8080
         predicates:
-        - Path=/phaedra/api/*/metadata-service/**, /phaedra/metadata-service/swagger-ui.html, /phaedra/metadata-service/swagger-ui/**, /phaedra/metadata-service/v3/api-docs/**, /phaedra/metadata-service/graphiql, /phaedra/metadata-service/graphql
+        - Path=/phaedra/**/metadata-service/**
       - id: protocol-service
         uri: http://phaedra-protocol-service:8080
         predicates:
-        - Path=/phaedra/api/*/protocol-service/**, /phaedra/protocol-service/swagger-ui.html, /phaedra/protocol-service/swagger-ui/**, /phaedra/protocol-service/v3/api-docs/**, /phaedra/protocol-service/graphiql, /phaedra/protocol-service/graphql
+        - Path=/phaedra/**/protocol-service/**
       - id: calculation-service
         uri: http://phaedra-calculation-service:8080
         predicates:
-        - Path=/phaedra/api/*/calculation-service/**, /phaedra/calculation-service/swagger-ui.html, /phaedra/calculation-service/swagger-ui/**, /phaedra/calculation-service/v3/api-docs/**
+        - Path=/phaedra/**/calculation-service/**
       - id: resultdata-service
         uri: http://phaedra-resultdata-service:8080
         predicates:
-        - Path=/phaedra/api/*/resultdata-service/**, /phaedra/resultdata-service/swagger-ui.html, /phaedra/resultdata-service/swagger-ui/**, /phaedra/resultdata-service/v3/api-docs/**, /phaedra/resultdata-service/graphiql, /phaedra/resultdata-service/graphql
-      - id: curvedata-service
-        uri: http://phaedra-curvedata-service:8080
-        predicates:
-        - Path=/phaedra/api/*/curvedata-service/**, /phaedra/curvedata-service/swagger-ui.html, /phaedra/curvedata-service/swagger-ui/**, /phaedra/curvedata-service/v3/api-docs/**, /phaedra/curvedata-service/graphiql, /phaedra/curvedata-service/graphql
-      - id: meas-service
+        - Path=/phaedra/**/resultdata-service/**
+      - id: measurement-service
         uri: http://phaedra-measurement-service:8080
         predicates:
-        - Path=/phaedra/api/*/measurement-service/**, /phaedra/measurement-service/swagger-ui.html, /phaedra/measurement-service/swagger-ui/**, /phaedra/measurement-service/v3/api-docs/**, /phaedra/measurement-service/graphiql, /phaedra/measurement-service/graphql
+        - Path=/phaedra/**/measurement-service/**
       - id: pipeline-service
         uri: http://phaedra-pipeline-service:8080
         predicates:
-        - Path=/phaedra/api/*/pipeline-service/**
+        - Path=/phaedra/**/pipeline-service/**
       - id: datacapture-service
         uri: http://phaedra-datacapture-service:8080
         predicates:
-        - Path=/phaedra/api/*/datacapture-service/**
-      - id: scriptengine-r-worker-v2
-        uri: http://phaedra-scriptengine-r-worker-v2:8080
+        - Path=/phaedra/**/datacapture-service/**
+      - id: scriptengine-r-worker
+        uri: http://phaedra-scriptengine-r-worker:8080
         predicates:
-        - Path=/phaedra/api/*/scriptengine-r-worker-v2/**
+        - Path=/phaedra/**/scriptengine-r-worker/**
       - id: charting-service
         uri: http://phaedra-charting-service:8080
         predicates:
-        - Path=/phaedra/api/*/charting-service/**, /phaedra/charting-service/swagger-ui.html, /phaedra/charting-service/swagger-ui/**, /phaedra/charting-service/v3/api-docs/**, /phaedra/charting-service/graphiql, /phaedra/charting-service/graphql
+        - Path=/phaedra/**/charting-service/**
       - id: query-service
         uri: http://phaedra-query-service:8080
         predicates:
-        - Path=/phaedra/api/*/query-service/**, /phaedra/query-service/swagger-ui.html, /phaedra/query-service/swagger-ui/**, /phaedra/query-service/v3/api-docs/**, /phaedra/query-service/graphiql, /phaedra/query-service/graphql
+        - Path=/phaedra/**/query-service/**
       - id: ui
         uri: http://phaedra-ui:8080
         predicates:
