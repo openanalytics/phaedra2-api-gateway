@@ -23,7 +23,7 @@ spring:
             allowedMethods: "*"
             allowedHeaders: "*"
       default-filters:
-      - RewritePath=/phaedra/*v.+/(?<service>.*service)/(?<segment>.*), /phaedra/$\{service}/$\{segment}
+      - RewritePath=/phaedra/api/v.+/(?<service>.*service)/(?<segment>.*), /phaedra/$\{service}/$\{segment}
       - TokenRelay=
       routes:
       - id: plate-service
