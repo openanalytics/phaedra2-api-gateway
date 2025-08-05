@@ -74,6 +74,10 @@ spring:
         uri: http://phaedra-query-service:8080
         predicates:
         - Path=/phaedra/api/*/query-service/**, /phaedra/query-service/**
+      - id: user-service
+        uri: http://phaedra-user-service:8080
+        predicates:
+        - Path=/phaedra/api/*/user-service/**, /phaedra/user-service/**
       - id: ui
         uri: http://phaedra-ui:8080
         predicates:
